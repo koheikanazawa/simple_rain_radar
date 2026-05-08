@@ -1400,6 +1400,24 @@
     });
 
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+    // Geolocate Control (現在地表示)
+    const geolocate = new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true,      // 移動に追従
+        showUserHeading: true,        // 向きも表示（矢印付き）
+        showAccuracyCircle: true      // 精度円を表示
+    });
+
+    map.addControl(geolocate, 'top-right');
+
+    // 地図ロード後に自動で現在地取得（任意）
+    map.on('load', () => {
+        geolocate.trigger();
+    });
+
 </script>
 </body>
 </html>
